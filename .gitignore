@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+test/bin64/
+test/.vs/
+test/r0/x64/
+test/r3/x64/
