@@ -138,6 +138,7 @@
     <ClCompile>
       <AdditionalIncludeDirectories>..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <WarningLevel>Level3</WarningLevel>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -148,6 +149,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="r0.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\test.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
