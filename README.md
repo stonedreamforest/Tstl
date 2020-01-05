@@ -21,3 +21,7 @@ The kernel mode Standard Template Library Template
 - 不支持虚析构
 
 > 以上缺失特性都可以使用`模板元编程`解决
+
+
+#### 相关
+1. [驱动使用c++以及stl库](https://mp.weixin.qq.com/s/zazSyjOfB4un4SSB6XTVLQ)
