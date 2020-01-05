@@ -1,2 +1,23 @@
 # Tstl
 The kernel mode Standard Template Library Template
+
+
+
+
+
+
+
+
+
+#### 如何使用
+1. 包含`Tstl/src/`
+> 其中`tlist.hpp`是一个示例容器 你可以参考自行实现.
+2. 开启`c++17`支持
+3. 自己实现你需要的容器,比如`vector`、`array`、`map`...
+
+
+#### 其它
+- 不支持继承
+- 不支持虚析构
+
+> 以上缺失特性都可以使用`模板元编程`解决
