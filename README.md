@@ -18,7 +18,7 @@ The kernel mode Standard Template Library Template
 
 #### 其它
 - 不支持继承
-- 不支持虚析构
+- 不支持虚函数
 
 > 以上缺失特性都可以使用`模板元编程`解决
 
