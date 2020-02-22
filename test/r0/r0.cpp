@@ -3,36 +3,24 @@
 #include <tlist.hpp>
 #include "../test.hpp"
 
-
-
-
 EXTERN_C
-void DriverUnload(
-	_DRIVER_OBJECT *DriverObject
-) {
-	UNREFERENCED_PARAMETER(DriverObject);
+void DriverUnload(_DRIVER_OBJECT* DriverObject) {
+    UNREFERENCED_PARAMETER(DriverObject);
 
-	// Ïú»Ù
-	Test::__destory();
+    // é”€æ¯
+    Test::__destory();
 }
 
-
 EXTERN_C
-NTSTATUS DriverEntry(
-	_In_ PDRIVER_OBJECT DriverObject ,
-	_In_ PUNICODE_STRING RegistryPath) {
-	UNREFERENCED_PARAMETER(RegistryPath);
-	DriverObject->DriverUnload = DriverUnload;
+NTSTATUS DriverEntry(_In_ PDRIVER_OBJECT DriverObject, _In_ PUNICODE_STRING RegistryPath) {
+    UNREFERENCED_PARAMETER(RegistryPath);
+    DriverObject->DriverUnload = DriverUnload;
 
-	// ³õÊ¼»¯
-	Test::__init();
+    // åˆå§‹åŒ–
+    Test::__init();
 
+    Test::test_g_class();
+    Test::test_l_class();
 
-
-	Test::test_g_class();
-	Test::test_l_class();
-
-
-
-	return STATUS_SUCCESS;
+    return STATUS_SUCCESS;
 }

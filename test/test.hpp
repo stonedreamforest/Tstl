@@ -7,181 +7,153 @@
 #define printf_s DbgPrint
 #endif
 
-
-
-
-
 namespace Test {
 
-	class MyClass {
-	public:
-		MyClass() {
-			printf_s("µØÖ·£º%p ¹¹Ôì: %s\n" , this , __FUNCSIG__);
-		}
-		MyClass(int i) :m_value(i) {
-			printf_s("µØÖ·£º%p ¹¹Ôì: %s\n" , this , __FUNCSIG__);
-		}
+    class MyClass {
+    public:
+        MyClass() {
+            printf_s("åœ°å€ï¼š%p æ„é€ : %s\n", this, __FUNCSIG__);
+        }
+        MyClass(int i): m_value(i) {
+            printf_s("åœ°å€ï¼š%p æ„é€ : %s\n", this, __FUNCSIG__);
+        }
 
-		~MyClass() {
-			printf_s("µØÖ·£º%p Îö¹¹£º%s\n" , this , __FUNCSIG__);
-		}
-		void _destory() {
-		// Îö¹¹º¯Êı
-			printf_s("µØÖ·£º%p Îö¹¹£º%s\n" , this , __FUNCSIG__);
-		}
+        ~MyClass() {
+            printf_s("åœ°å€ï¼š%p ææ„ï¼š%s\n", this, __FUNCSIG__);
+        }
+        void _destory() {
+            // ææ„å‡½æ•°
+            printf_s("åœ°å€ï¼š%p ææ„ï¼š%s\n", this, __FUNCSIG__);
+        }
 
-		MyClass(const MyClass &t) {
-			printf_s("µØÖ·£º%p ¿½±´¹¹Ôì: %s\n" , this , __FUNCSIG__);
+        MyClass(const MyClass& t) {
+            printf_s("åœ°å€ï¼š%p æ‹·è´æ„é€ : %s\n", this, __FUNCSIG__);
 
-			if (&t == this) {
-				return;
-			}
-			this->m_value = t.m_value;
-			return;
-		}
+            if (&t == this) {
+                return;
+            }
+            this->m_value = t.m_value;
+            return;
+        }
 
-		MyClass(MyClass&& t) {
-			printf_s("µØÖ·£º%p ¿½±´¹¹Ôì: %s\n" , this , __FUNCSIG__);
-			if (&t == this) {
-				return;
-			}
-			this->m_value = t.m_value;
-			t.m_value = 0;
-			return;
-		}
+        MyClass(MyClass&& t) {
+            printf_s("åœ°å€ï¼š%p æ‹·è´æ„é€ : %s\n", this, __FUNCSIG__);
+            if (&t == this) {
+                return;
+            }
+            this->m_value = t.m_value;
+            t.m_value     = 0;
+            return;
+        }
 
+        MyClass& operator=(const MyClass& t) {
+            printf_s("åœ°å€ï¼š%p èµ‹å€¼æ„é€ : %s\n", this, __FUNCSIG__);
+            if (&t == this) {
+                return *this;
+            }
+            this->m_value = t.m_value;
+            return *this;
+        }
 
-		MyClass& operator=(const MyClass& t) {
-			printf_s("µØÖ·£º%p ¸³Öµ¹¹Ôì: %s\n" , this , __FUNCSIG__);
-			if (&t == this) {
-				return *this;
-			}
-			this->m_value = t.m_value;
-			return *this;
-		}
+        MyClass& operator=(MyClass&& t) {
+            printf_s("åœ°å€ï¼š%p èµ‹å€¼æ„é€ : %s\n", this, __FUNCSIG__);
+            if (&t == this) {
+                return *this;
+            }
+            this->m_value = t.m_value;
+            t.m_value     = 0;
+            return *this;
+        }
 
+        bool operator==(const MyClass& t) {
+            if (&t == this) {
+                return true;
+            }
+            return this->m_value == t.m_value ? false : true;
+        }
 
-		MyClass& operator=(MyClass&& t) {
-			printf_s("µØÖ·£º%p ¸³Öµ¹¹Ôì: %s\n" , this , __FUNCSIG__);
-			if (&t == this) {
-				return *this;
-			}
-			this->m_value = t.m_value;
-			t.m_value = 0;
-			return *this;
-		}
+    public:
+        void test1() {
+            printf_s("åœ°å€ï¼š%p æˆå‘˜å‡½æ•°: %s\n", this, __FUNCSIG__);
+        }
 
+        virtual void test2() {
+            // ä¸æ”¯æŒ
+            printf_s("åœ°å€ï¼š%p è™šå‡½æ•°: %s\n", this, __FUNCSIG__);
+        }
 
-		bool operator==(const MyClass &t) {
-			if (&t == this) {
-				return true;
-			}
-			return this->m_value == t.m_value ? false : true;
-		}
+    private:
+        int m_value;
+    };
 
-	public:
-		void test1() {
-			printf_s("µØÖ·£º%p ³ÉÔ±º¯Êı: %s\n" , this , __FUNCSIG__);
-		}
+    Tstl::TList<int>*     gtest;
+    Tstl::TList<MyClass>* g_listMyclass1;
+    Tstl::TList<MyClass>* g_listMyclass2;
+    MyClass*              g_MyClass;
 
-		virtual void test2() {
-			// ²»Ö§³Ö
-			printf_s("µØÖ·£º%p Ğéº¯Êı: %s\n" , this , __FUNCSIG__);
-		}
-	private:
-		int m_value;
-	};
+    void __init() {
+        Tstl::init_global_vars(g_listMyclass1, gtest, g_listMyclass2, g_MyClass);
+    }
 
+    void __destory() {
+        Tstl::destory_global_vars(g_listMyclass1, gtest, g_listMyclass2, g_MyClass);
+    }
 
+    // æµ‹è¯•å…¨å±€å˜é‡
+    void test_g_class() {
+        // Tstl::Constructor<MyClass> t3 , t4;
+        // t3.init_args(1);
+        // t4.init_args(2);
 
+        // t3.get().m_str = "t1";
+        // t4.get().m_str = "t2";
+        // gmyclass->add(t3);
+        // gmyclass->add(t4);
 
-	Tstl::TList<int>* gtest;
-	Tstl::TList<MyClass>* g_listMyclass1;
-	Tstl::TList<MyClass>* g_listMyclass2;
-	MyClass* g_MyClass;
+        MyClass t1(1), t2(2), t3(6);
+        MyClass ttt1 = t1;
+        auto    ttt2 = t1;
+        ttt2         = t1;
 
+        g_listMyclass1->add(t1);
+        g_listMyclass1->add(t2);
+        g_listMyclass1->add(Tstl::move(t3));
 
-	void __init() {
-		Tstl::init_global_vars(g_listMyclass1 , gtest , g_listMyclass2 , g_MyClass);
-	}
+        g_listMyclass1->remove(t1);
+        g_listMyclass1->clear();
 
-	void __destory() {
-		Tstl::destory_global_vars(g_listMyclass1 , gtest , g_listMyclass2 , g_MyClass);
-	}
+        auto fun = [](MyClass& my, int a, int b) {
+            g_MyClass->test1();
+            my.test1();
+            // my.test2();
+            return a + b;
+        };
+        auto testff = fun(t1, 1, 2);
+    }
 
-	// ²âÊÔÈ«¾Ö±äÁ¿
-	void test_g_class() {
-		//Tstl::Constructor<MyClass> t3 , t4;
-		//t3.init_args(1);
-		//t4.init_args(2);
+    // æµ‹è¯•å±€éƒ¨å˜é‡
+    void test_l_class() {
+        Tstl::TList<MyClass> listMyclass;
+        MyClass              t1(1), t2(2), t3(6);
+        MyClass              ttt1 = t1;
+        auto                 ttt2 = t1;
+        ttt2                      = t1;
 
-		//t3.get().m_str = "t1";
-		//t4.get().m_str = "t2";
-		//gmyclass->add(t3);
-		//gmyclass->add(t4);
+        listMyclass.add(t1);
+        listMyclass.add(t2);
+        listMyclass.add(Tstl::move(t3));
+        listMyclass.remove(t1);
+        listMyclass.clear();
 
-		MyClass t1(1) , t2(2) , t3(6);
-		MyClass ttt1 = t1;
-		auto ttt2 = t1;
-		ttt2 = t1;
+        auto fun = [](MyClass& my, int a, int b) {
+            g_MyClass->test1();
+            my.test1();
+            // my.test2();
+            return a + b;
+        };
+        auto testff = fun(t1, 1, 2);
+    }
 
-		g_listMyclass1->add(t1);
-		g_listMyclass1->add(t2);
-		g_listMyclass1->add(Tstl::move(t3));
-
-		g_listMyclass1->remove(t1);
-		g_listMyclass1->clear();
-
-		auto fun = [](MyClass& my , int a , int b) {
-			g_MyClass->test1();
-			my.test1();
-			//my.test2();
-			return a + b;
-		};
-		auto testff = fun(t1 , 1 , 2);
-
-	}
-
-	// ²âÊÔ¾Ö²¿±äÁ¿
-	void test_l_class() {
-		Tstl::TList<MyClass> listMyclass;
-		MyClass t1(1) , t2(2) , t3(6);
-		MyClass ttt1 = t1;
-		auto ttt2 = t1;
-		ttt2 = t1;
-
-		listMyclass.add(t1);
-		listMyclass.add(t2);
-		listMyclass.add(Tstl::move(t3));
-		listMyclass.remove(t1);
-		listMyclass.clear();
-
-		auto fun = [](MyClass& my , int a , int b) {
-			g_MyClass->test1();
-			my.test1();
-			//my.test2();
-			return a + b;
-		};
-		auto testff = fun(t1 , 1 , 2);
-
-	}
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+} // namespace Test
 
 #endif // !_TEST_HPP_
